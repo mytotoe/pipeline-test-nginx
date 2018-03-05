@@ -248,7 +248,7 @@ pipeline {
                        "target_commitish": "master",\
                        "name": "'${EXT_RELEASE}'-pkg-'${PACKAGE_TAG}'-ls'${LS_TAG_NUMBER}'",\
                        "body": "**LinuxServer Changes:**\\n\\n'${LS_RELEASE_NOTES}'\\n**'${EXT_REPO}' Changes:**\\n\\n' > start
-              elif [ ${EXT_RELEASE_TYPE} == 'os']
+              elif [ ${EXT_RELEASE_TYPE} == 'os']; then
                 # Using base package version for release notes
                  echo "Updating base packages to ${PACKAGE_TAG}" > releasebody.json
                 # Creating the start of the json payload
