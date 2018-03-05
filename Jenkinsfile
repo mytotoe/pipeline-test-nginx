@@ -7,7 +7,7 @@ pipeline {
     EXT_REPO = 'none'
     BUILD_VERSION_ARG = 'none'
     LS_USER = 'linuxserver'
-    LS_REPO = 'nginx'
+    LS_REPO = 'pipeline-test-nginx'
     DOCKERHUB_IMAGE = 'lspipelive/nginx'
     DEV_DOCKERHUB_IMAGE = 'lspipetest/nginx'
     PR_DOCKERHUB_IMAGE = 'lspipepr/nginx'
