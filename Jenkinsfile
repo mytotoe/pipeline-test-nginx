@@ -231,16 +231,16 @@ pipeline {
         environment name: 'CHANGE_ID', value: ''
       }
       steps {
-        echo "Pushing New tag for current commit ${EXT_RELEASE}-ls${LS_TAG_NUMBER}"
+        echo "Pushing New tag for current commit ${EXT_RELEASE}-pkg-${PACKAGE_TAG}-ls${LS_TAG_NUMBER}"
         sh '''curl -H "Authorization: token ${GITHUB_TOKEN}" -X POST https://api.github.com/repos/${LS_USER}/${LS_REPO}/git/tags \
-        -d '{"tag":"'${EXT_RELEASE}'-ls'${LS_TAG_NUMBER}'",\
+        -d '{"tag":"'${EXT_RELEASE}'-pkg-'${PACKAGE_TAG}'-ls'${LS_TAG_NUMBER}'",\
              "object": "'${COMMIT_SHA}'",\
-             "message": "Tagging Release '${EXT_RELEASE}'-ls'${LS_TAG_NUMBER}' to master",\
+             "message": "Tagging Release '${EXT_RELEASE}'-pkg-'${PACKAGE_TAG}'-ls'${LS_TAG_NUMBER}' to master",\
              "type": "commit",\
              "tagger": {"name": "LinuxServer Jenkins","email": "jenkins@linuxserver.io","date": "'${GITHUB_DATE}'"}}' '''
         echo "Pushing New release for Tag"
         sh '''#! /bin/bash
-              if [ ${EXT_RELEASE_TYPE} == 'github_stable'] || [ ${EXT_RELEASE_TYPE} == 'github_devel']; then
+              if [ ${EXT_RELEASE_TYPE} == 'github_stable' ] || [ ${EXT_RELEASE_TYPE} == 'github_devel' ]; then
                 # Grabbing the current release body from external repo
                 curl -s https://api.github.com/repos/${EXT_USER}/${EXT_REPO}/releases/latest | jq '. |.body' | sed 's:^.\\(.*\\).$:\\1:' > releasebody.json
                 # Creating the start of the json payload
@@ -248,7 +248,7 @@ pipeline {
                        "target_commitish": "master",\
                        "name": "'${EXT_RELEASE}'-pkg-'${PACKAGE_TAG}'-ls'${LS_TAG_NUMBER}'",\
                        "body": "**LinuxServer Changes:**\\n\\n'${LS_RELEASE_NOTES}'\\n**'${EXT_REPO}' Changes:**\\n\\n' > start
-              elif [ ${EXT_RELEASE_TYPE} == 'os']; then
+              elif [ ${EXT_RELEASE_TYPE} == 'os' ]; then
                 # Using base package version for release notes
                  echo "Updating base packages to ${PACKAGE_TAG}" > releasebody.json
                 # Creating the start of the json payload
