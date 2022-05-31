@@ -1,6 +1,13 @@
 pipeline {
   agent any
   // Configuraiton for the variables used for this specific repo
+  kubernetes {
+      // Without cloud, Jenkins will pick the first cloud in the list
+      cloud "test-cluster"
+      label "jenkins-agent"
+
+    }
+  
   environment {
     EXT_RELEASE_TYPE = 'os'
     EXT_USER = 'none'
