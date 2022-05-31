@@ -1,12 +1,13 @@
+
 pipeline {
-  agent any
-  // Configuraiton for the variables used for this specific repo
-  kubernetes {
+  agent {
+    kubernetes {
       // Without cloud, Jenkins will pick the first cloud in the list
       cloud "test-cluster"
       label "jenkins-agent"
-
+      //yamlFile "jenkins-build-pod.yaml"
     }
+  }
   
   environment {
     EXT_RELEASE_TYPE = 'os'
